@@ -169,7 +169,7 @@
                 </ul>
                 <div class="service-bottom">
                     <span>Jelajahi layanan</span>
-                    <a href="{{ rtrim(config('app.url'), '/') }}/website" class="service-button">Pilih Website →</a>
+                    <a href="{{ route('webia.index') }}" class="service-button">Pilih Website →</a>
                 </div>
             </article>
 

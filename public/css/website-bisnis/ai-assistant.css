@@ -1,0 +1,456 @@
+/* =========================================
+   WEBIA AI ASSISTANT
+   Frontend UI only — backend integration pending
+========================================= */
+
+.webia-ai,
+.webia-ai * {
+    box-sizing: border-box;
+}
+
+.webia-ai {
+    --ai-purple: #8b5cf6;
+    --ai-pink: #e879f9;
+    --ai-cyan: #67e8f9;
+    --ai-dark: #100b27;
+    --ai-panel: #17102f;
+    --ai-text: #f7f3ff;
+    --ai-muted: #b8aecf;
+
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 1000;
+    font-family: inherit;
+    color: var(--ai-text);
+}
+
+/* Floating launcher */
+.webia-ai__launcher {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 54px;
+    padding: 0 19px;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 999px;
+    color: #fff;
+    background: linear-gradient(120deg, #7042ec, #a83ce5, #3879ed);
+    background-size: 200% 200%;
+    box-shadow: 0 10px 35px rgba(113, 66, 236, 0.4);
+    cursor: pointer;
+    font: inherit;
+    font-weight: 700;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    animation: webiaAiGradient 6s ease infinite;
+}
+
+.webia-ai__launcher:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 38px rgba(168, 60, 229, 0.48);
+}
+
+.webia-ai__launcher-icon {
+    display: grid;
+    place-items: center;
+    width: 27px;
+    height: 27px;
+    border-radius: 50%;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.18);
+    font-size: 21px;
+}
+
+.webia-ai__launcher-label {
+    font-size: 14px;
+}
+
+/* Chat panel */
+.webia-ai__panel {
+    position: absolute;
+    right: 0;
+    bottom: 68px;
+    display: flex;
+    flex-direction: column;
+    width: min(390px, calc(100vw - 32px));
+    height: min(570px, calc(100dvh - 125px));
+    min-height: 340px;
+    overflow: hidden;
+    border: 1px solid rgba(190, 157, 255, 0.3);
+    border-radius: 22px;
+    background:
+        radial-gradient(ellipse at top right, rgba(123, 63, 228, 0.18), transparent 48%),
+        var(--ai-panel);
+    box-shadow: 0 20px 70px rgba(0, 0, 0, 0.48);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(12px) scale(0.98);
+    transform-origin: bottom right;
+    transition:
+        opacity 0.22s ease,
+        transform 0.22s ease,
+        visibility 0.22s ease;
+}
+
+.webia-ai__panel.is-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+}
+
+/* Header */
+.webia-ai__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 17px 18px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+    background: rgba(255, 255, 255, 0.025);
+}
+
+.webia-ai__identity {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+}
+
+.webia-ai__avatar {
+    display: grid;
+    place-items: center;
+    width: 43px;
+    height: 43px;
+    flex-shrink: 0;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 15px;
+    background: linear-gradient(135deg, #7548ee, #d34de9);
+    box-shadow: 0 0 22px rgba(139, 92, 246, 0.3);
+    font-size: 24px;
+}
+
+.webia-ai__identity h2 {
+    margin: 0;
+    color: var(--ai-text);
+    font-size: 15px;
+    font-weight: 750;
+}
+
+.webia-ai__identity p {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 5px 0 0;
+    color: var(--ai-muted);
+    font-size: 11px;
+}
+
+.webia-ai__status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--ai-cyan);
+    box-shadow: 0 0 9px rgba(103, 232, 249, 0.65);
+}
+
+.webia-ai__close {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border: 0;
+    border-radius: 10px;
+    color: var(--ai-text);
+    background: rgba(255, 255, 255, 0.07);
+    cursor: pointer;
+    font: inherit;
+    font-size: 25px;
+    line-height: 1;
+}
+
+.webia-ai__close:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+/* Conversation area */
+.webia-ai__messages {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding: 19px 17px;
+    scrollbar-width: thin;
+    scrollbar-color: #5b4389 transparent;
+}
+
+.webia-ai__welcome {
+    margin-bottom: 18px;
+}
+
+.webia-ai__eyebrow {
+    color: var(--ai-cyan);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+}
+
+.webia-ai__welcome h3 {
+    margin: 9px 0;
+    color: var(--ai-text);
+    font-size: 22px;
+    line-height: 1.3;
+}
+
+.webia-ai__welcome p {
+    margin: 0;
+    color: var(--ai-muted);
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.webia-ai__message {
+    max-width: 95%;
+    padding: 12px 14px;
+    border-radius: 5px 16px 16px 16px;
+    color: #eee8ff;
+    background: rgba(255, 255, 255, 0.075);
+    font-size: 13px;
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+}
+
+.webia-ai__suggestions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin-top: 15px;
+}
+
+.webia-ai__suggestions button {
+    max-width: 100%;
+    padding: 9px 12px;
+    border: 1px solid rgba(185, 148, 255, 0.35);
+    border-radius: 12px;
+    color: #e6d9ff;
+    background: rgba(126, 76, 219, 0.09);
+    cursor: pointer;
+    font: inherit;
+    font-size: 12px;
+    line-height: 1.5;
+    text-align: left;
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.webia-ai__suggestions button:hover {
+    border-color: var(--ai-pink);
+    background: rgba(126, 76, 219, 0.22);
+}
+
+/* Backend-pending notice */
+.webia-ai__notice {
+    display: flex;
+    gap: 8px;
+    padding: 10px 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+    color: var(--ai-muted);
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+.webia-ai__notice>span:first-child {
+    color: var(--ai-pink);
+}
+
+/* Input */
+.webia-ai__form {
+    display: flex;
+    align-items: flex-end;
+    gap: 9px;
+    margin: 0 13px;
+    padding: 8px;
+    border: 1px solid rgba(185, 148, 255, 0.27);
+    border-radius: 16px;
+    background: rgba(4, 3, 15, 0.38);
+}
+
+.webia-ai__form textarea {
+    flex: 1;
+    width: 100%;
+    min-width: 0;
+    max-height: 95px;
+    padding: 7px 5px;
+    resize: none;
+    border: 0;
+    outline: none;
+    color: var(--ai-text);
+    background: transparent;
+    font: inherit;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.webia-ai__form textarea::placeholder {
+    color: #9285ad;
+}
+
+.webia-ai__form button {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    border: 0;
+    border-radius: 11px;
+    color: #fff;
+    background: linear-gradient(135deg, #7948ee, #b43fe1);
+    font: inherit;
+    font-size: 22px;
+}
+
+.webia-ai__form button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.webia-ai__disclaimer {
+    margin: 10px 12px 12px;
+    color: #8e81a8;
+    font-size: 10px;
+    text-align: center;
+}
+
+.webia-ai__sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.webia-ai button:focus-visible,
+.webia-ai textarea:focus-visible {
+    outline: 2px solid var(--ai-cyan);
+    outline-offset: 3px;
+}
+
+@keyframes webiaAiGradient {
+
+    0%,
+    100% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .webia-ai {
+        right: 14px;
+        bottom: 14px;
+    }
+
+    .webia-ai__launcher {
+        min-height: 49px;
+        padding: 0 14px;
+        gap: 8px;
+    }
+
+    .webia-ai__launcher-label {
+        font-size: 12px;
+    }
+
+    .webia-ai__panel {
+        position: fixed;
+        right: 10px;
+        bottom: 75px;
+        width: calc(100vw - 20px);
+        height: min(590px, calc(100dvh - 100px));
+        max-height: calc(100dvh - 100px);
+        border-radius: 19px;
+        transform-origin: bottom right;
+    }
+
+    .webia-ai__welcome h3 {
+        font-size: 20px;
+    }
+
+    /* Mobile: tampilkan ikon saja */
+    .webia-ai__launcher {
+        width: 52px;
+        height: 52px;
+        min-height: 52px;
+        padding: 0;
+        border-radius: 50%;
+        gap: 0;
+    }
+
+    .webia-ai__launcher-label {
+        display: none;
+    }
+
+    .webia-ai__launcher-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 25px;
+    }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .webia-ai__launcher {
+        animation: none;
+    }
+
+    .webia-ai__panel,
+    .webia-ai__launcher {
+        transition: none;
+    }
+}
+
+
+
+/* WEBIA AI — CONSISTENT TYPE SCALE */
+.webia-ai {
+    --ai-font-body: 12px;
+    --ai-font-small: 10px;
+    --ai-font-title: 15px;
+}
+.webia-ai__launcher-label,
+.webia-ai__suggestions button,
+.webia-ai__message,
+.webia-ai__form textarea {
+    font-size: var(--ai-font-body);
+}
+.webia-ai__identity h2 {
+    font-size: var(--ai-font-title);
+    line-height: 1.35;
+}
+.webia-ai__identity p,
+.webia-ai__notice,
+.webia-ai__disclaimer {
+    font-size: var(--ai-font-small);
+}
+.webia-ai__welcome h3 {
+    font-size: 20px;
+    line-height: 1.3;
+}
+.webia-ai__welcome p {
+    font-size: var(--ai-font-body);
+    line-height: 1.65;
+}
+@media (max-width: 600px) {
+    .webia-ai__launcher-label,
+    .webia-ai__suggestions button,
+    .webia-ai__message,
+    .webia-ai__form textarea {
+        font-size: var(--ai-font-body);
+    }
+}
