@@ -4,13 +4,15 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Services\AI\LlmGateway;
+use App\Services\AI\Routing\ServiceIntentRouter;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class AiChatController extends Controller
 {
     public function __construct(
-        protected LlmGateway $llmGateway
+        protected LlmGateway $llmGateway,
+        protected ServiceIntentRouter $intentRouter
     ) {}
 
     /**
@@ -47,7 +49,21 @@ class AiChatController extends Controller
 
         $response = $this->llmGateway->chat($layer, $validated['messages'], $options);
 
-        return response()->json([
+        // L1 Intent Detection & Routing Action
+        $routing = null;
+        if ($layer === 'l1') {
+            $latestUserMessage = '';
+            foreach (array_reverse($validated['messages']) as $msg) {
+                if (($msg['role'] ?? '') === 'user') {
+                    $latestUserMessage = (string) ($msg['content'] ?? '');
+                    break;
+                }
+            }
+
+            $routing = $this->intentRouter->detectAndRoute($latestUserMessage, $options['context']);
+        }
+
+        $jsonPayload = [
             'success' => true,
             'layer' => $layer,
             'message' => [
@@ -60,6 +76,12 @@ class AiChatController extends Controller
                 'is_fallback' => $response['is_fallback'],
                 'usage' => $response['usage'],
             ],
-        ]);
+        ];
+
+        if ($routing !== null) {
+            $jsonPayload['routing'] = $routing;
+        }
+
+        return response()->json($jsonPayload);
     }
 }

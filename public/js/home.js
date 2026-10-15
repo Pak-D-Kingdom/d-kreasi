@@ -36,12 +36,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // AI Assistant sementara
+    // AI Assistant widget trigger
     document.querySelectorAll('[data-ai]').forEach(button => {
-        button.addEventListener('click', () => {
-            alert(
-                'AI Assistant akan dihubungkan oleh tim AI. Untuk saat ini, silakan pilih layanan yang tersedia.'
-            );
+        button.addEventListener('click', (e) => {
+            e.preventDefault();
+            const launcher = document.querySelector('#dkreasi-ai-launcher');
+            const panel = document.querySelector('#dkreasi-ai-panel');
+            if (launcher && panel && !panel.classList.contains('is-open')) {
+                launcher.click();
+            }
         });
     });
 });

@@ -1,0 +1,613 @@
+/* ========================================================
+   D-KREASI AI ASSISTANT (L1 Front-Desk Concierge)
+   Styling for Floating Launcher, Panel & Dynamic Action Cards
+======================================================== */
+
+.dkreasi-ai,
+.dkreasi-ai * {
+    box-sizing: border-box;
+}
+
+.dkreasi-ai {
+    --dk-purple: #8B5CF6;
+    --dk-pink: #EC4899;
+    --dk-cyan: #06B6D4;
+    --dk-blue: #0B64D4;
+    --dk-light-blue: #1698F6;
+    --dk-dark: #0B0E17;
+    --dk-panel: #111524;
+    --dk-panel-soft: #171C30;
+    --dk-text: #F8FAFC;
+    --dk-muted: #94A3B8;
+    --dk-border: rgba(255, 255, 255, 0.12);
+    --dk-border-glow: rgba(139, 92, 246, 0.35);
+
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 1000;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: var(--dk-text);
+}
+
+/* ----------------------------------------------------
+   1. Floating Launcher Button
+---------------------------------------------------- */
+.dkreasi-ai__launcher {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 52px;
+    padding: 0 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 9999px;
+    color: #ffffff;
+    background: linear-gradient(135deg, #0B64D4, #8B5CF6, #EC4899);
+    background-size: 200% 200%;
+    box-shadow: 0 10px 30px rgba(11, 100, 212, 0.4), 0 0 20px rgba(139, 92, 246, 0.3);
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 13.5px;
+    letter-spacing: -0.01em;
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+    animation: dkreasiGradientShift 6s ease infinite;
+}
+
+@keyframes dkreasiGradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.dkreasi-ai__launcher:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 14px 36px rgba(139, 92, 246, 0.5), 0 0 25px rgba(236, 72, 153, 0.35);
+}
+
+.dkreasi-ai__launcher:active {
+    transform: translateY(-1px) scale(0.99);
+}
+
+.dkreasi-ai__launcher-icon {
+    display: inline-grid;
+    place-items: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.22);
+    font-size: 14px;
+    color: #ffffff;
+}
+
+.dkreasi-ai__launcher-pulse {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #10B981;
+    border: 2px solid var(--dk-dark);
+    box-shadow: 0 0 8px #10B981;
+    animation: dkreasiPulse 2s infinite;
+}
+
+@keyframes dkreasiPulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.3); opacity: 0.6; }
+}
+
+/* ----------------------------------------------------
+   2. Chat Panel
+---------------------------------------------------- */
+.dkreasi-ai__panel {
+    position: absolute;
+    right: 0;
+    bottom: 66px;
+    display: flex;
+    flex-direction: column;
+    width: min(400px, calc(100vw - 32px));
+    height: min(600px, calc(100dvh - 120px));
+    min-height: 380px;
+    border: 1px solid var(--dk-border-glow);
+    border-radius: 20px;
+    background:
+        radial-gradient(circle at top right, rgba(139, 92, 246, 0.18), transparent 45%),
+        radial-gradient(circle at bottom left, rgba(6, 182, 212, 0.12), transparent 45%),
+        var(--dk-panel);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 35px rgba(139, 92, 246, 0.2);
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(16px) scale(0.96);
+    transform-origin: bottom right;
+    transition: opacity 0.24s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.24s cubic-bezier(0.16, 1, 0.3, 1),
+                visibility 0.24s ease;
+}
+
+.dkreasi-ai__panel.is-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+}
+
+/* ----------------------------------------------------
+   3. Panel Header
+---------------------------------------------------- */
+.dkreasi-ai__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 18px;
+    background: rgba(255, 255, 255, 0.04);
+    border-bottom: 1px solid var(--dk-border);
+}
+
+.dkreasi-ai__identity {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.dkreasi-ai__avatar {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #0B64D4, #8B5CF6);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+    font-size: 18px;
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.35);
+}
+
+.dkreasi-ai__identity-meta h2 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--dk-text);
+}
+
+.dkreasi-ai__identity-meta p {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 3px 0 0;
+    font-size: 11px;
+    color: var(--dk-muted);
+}
+
+.dkreasi-ai__status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #10B981;
+    box-shadow: 0 0 6px #10B981;
+}
+
+.dkreasi-ai__header-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.dkreasi-ai__header-wa {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 9px;
+    border-radius: 20px;
+    background: rgba(37, 211, 102, 0.15);
+    border: 1px solid rgba(37, 211, 102, 0.35);
+    color: #4ade80;
+    font-size: 11px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.dkreasi-ai__header-wa:hover {
+    background: rgba(37, 211, 102, 0.28);
+    transform: translateY(-1px);
+    color: #ffffff;
+}
+
+.dkreasi-ai__close {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--dk-muted);
+    font-size: 18px;
+    line-height: 1;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.dkreasi-ai__close:hover {
+    background: rgba(255, 255, 255, 0.18);
+    color: var(--dk-text);
+}
+
+/* ----------------------------------------------------
+   4. Messages Area
+---------------------------------------------------- */
+.dkreasi-ai__messages {
+    flex: 1;
+    padding: 16px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    scroll-behavior: smooth;
+}
+
+.dkreasi-ai__messages::-webkit-scrollbar {
+    width: 5px;
+}
+
+.dkreasi-ai__messages::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+}
+
+/* Welcome Card */
+.dkreasi-ai__welcome {
+    padding: 14px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.12), rgba(6, 182, 212, 0.08));
+    border: 1px solid rgba(139, 92, 246, 0.25);
+    margin-bottom: 4px;
+}
+
+.dkreasi-ai__eyebrow {
+    display: inline-block;
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--dk-cyan);
+    margin-bottom: 4px;
+}
+
+.dkreasi-ai__welcome h3 {
+    margin: 0 0 6px;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.dkreasi-ai__welcome p {
+    margin: 0;
+    font-size: 11.5px;
+    line-height: 1.5;
+    color: #CBD5E1;
+}
+
+/* Message Bubbles */
+.dkreasi-ai__message {
+    display: flex;
+    flex-direction: column;
+    max-width: 88%;
+    animation: dkreasiFadeSlide 0.2s ease-out forwards;
+}
+
+@keyframes dkreasiFadeSlide {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.dkreasi-ai__message--user {
+    align-self: flex-end;
+}
+
+.dkreasi-ai__message--assistant {
+    align-self: flex-start;
+}
+
+.dkreasi-ai__bubble {
+    padding: 10px 14px;
+    border-radius: 14px;
+    font-size: 12.5px;
+    line-height: 1.55;
+    word-break: break-word;
+    white-space: pre-line;
+}
+
+.dkreasi-ai__message--user .dkreasi-ai__bubble {
+    background: linear-gradient(135deg, #0B64D4, #8B5CF6);
+    color: #ffffff;
+    border-bottom-right-radius: 3px;
+    box-shadow: 0 4px 14px rgba(11, 100, 212, 0.3);
+}
+
+.dkreasi-ai__message--assistant .dkreasi-ai__bubble {
+    background: var(--dk-panel-soft);
+    color: var(--dk-text);
+    border: 1px solid var(--dk-border);
+    border-bottom-left-radius: 3px;
+}
+
+/* ----------------------------------------------------
+   5. Quick Suggestions
+---------------------------------------------------- */
+.dkreasi-ai__suggestions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-top: 4px;
+}
+
+.dkreasi-ai__chip {
+    padding: 6px 11px;
+    border-radius: 9999px;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    background: rgba(255, 255, 255, 0.05);
+    color: #CBD5E1;
+    font-size: 11px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+}
+
+.dkreasi-ai__chip:hover {
+    background: rgba(139, 92, 246, 0.22);
+    border-color: rgba(139, 92, 246, 0.45);
+    color: #ffffff;
+    transform: translateY(-1px);
+}
+
+/* ----------------------------------------------------
+   6. Dynamic Action Cards (Routing Call-To-Action)
+---------------------------------------------------- */
+.dkreasi-ai__action-card {
+    margin-top: 8px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: rgba(139, 92, 246, 0.1);
+    border: 1px dashed rgba(139, 92, 246, 0.35);
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.dkreasi-ai__action-card-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--dk-cyan);
+}
+
+.dkreasi-ai__action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 14px;
+    border-radius: 9999px;
+    font-size: 11.5px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+}
+
+.dkreasi-ai__action-btn--primary {
+    background: linear-gradient(135deg, #0B64D4, #8B5CF6);
+    color: #ffffff;
+    box-shadow: 0 4px 14px rgba(139, 92, 246, 0.35);
+}
+
+.dkreasi-ai__action-btn--primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(139, 92, 246, 0.5);
+    color: #ffffff;
+}
+
+.dkreasi-ai__action-btn--whatsapp {
+    background: #25D366;
+    color: #0b1e11;
+    font-weight: 700;
+    box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);
+}
+
+.dkreasi-ai__action-btn--whatsapp:hover {
+    background: #2ee26f;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(37, 211, 102, 0.5);
+    color: #0b1e11;
+}
+
+.dkreasi-ai__clarify-choices {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+}
+
+.dkreasi-ai__clarify-btn {
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.07);
+    color: #F8FAFC;
+    font-size: 11px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.dkreasi-ai__clarify-btn:hover {
+    background: rgba(139, 92, 246, 0.3);
+    border-color: #8B5CF6;
+}
+
+/* ----------------------------------------------------
+   7. Typing Indicator
+---------------------------------------------------- */
+.dkreasi-ai__typing {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    align-self: flex-start;
+}
+
+.dkreasi-ai__typing-bubble {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 12px;
+    border-radius: 12px;
+    background: var(--dk-panel-soft);
+    border: 1px solid var(--dk-border);
+}
+
+.dkreasi-ai__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--dk-muted);
+    animation: dkreasiBounce 1.4s infinite ease-in-out both;
+}
+
+.dkreasi-ai__dot:nth-child(1) { animation-delay: -0.32s; }
+.dkreasi-ai__dot:nth-child(2) { animation-delay: -0.16s; }
+
+@keyframes dkreasiBounce {
+    0%, 80%, 100% { transform: scale(0); opacity: 0.4; }
+    40% { transform: scale(1); opacity: 1; background: var(--dk-purple); }
+}
+
+.dkreasi-ai__typing-text {
+    font-size: 11px;
+    color: var(--dk-muted);
+    font-style: italic;
+}
+
+/* ----------------------------------------------------
+   8. Form & Input
+---------------------------------------------------- */
+.dkreasi-ai__form {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    padding: 12px 14px;
+    background: rgba(255, 255, 255, 0.03);
+    border-top: 1px solid var(--dk-border);
+}
+
+.dkreasi-ai__sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+#dkreasi-ai-input {
+    flex: 1;
+    min-height: 38px;
+    max-height: 100px;
+    padding: 9px 12px;
+    border-radius: 10px;
+    border: 1px solid var(--dk-border);
+    background: rgba(0, 0, 0, 0.25);
+    color: var(--dk-text);
+    font-family: inherit;
+    font-size: 12.5px;
+    line-height: 1.45;
+    resize: none;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#dkreasi-ai-input:focus {
+    border-color: var(--dk-purple);
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+}
+
+#dkreasi-ai-input::placeholder {
+    color: var(--dk-muted);
+}
+
+#dkreasi-ai-send {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    border: none;
+    background: linear-gradient(135deg, #0B64D4, #8B5CF6);
+    color: #ffffff;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+#dkreasi-ai-send:not(:disabled):hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+}
+
+#dkreasi-ai-send:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* ----------------------------------------------------
+   9. Footer
+---------------------------------------------------- */
+.dkreasi-ai__footer {
+    padding: 6px 14px 8px;
+    text-align: center;
+    font-size: 10px;
+    color: var(--dk-muted);
+    background: rgba(255, 255, 255, 0.02);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* ----------------------------------------------------
+   10. Mobile Responsive
+---------------------------------------------------- */
+@media (max-width: 480px) {
+    .dkreasi-ai {
+        right: 14px;
+        bottom: 14px;
+    }
+
+    .dkreasi-ai__panel {
+        width: calc(100vw - 28px);
+        height: min(540px, calc(100dvh - 90px));
+        bottom: 60px;
+        border-radius: 16px;
+    }
+
+    .dkreasi-ai__launcher-label {
+        display: none;
+    }
+
+    .dkreasi-ai__launcher {
+        min-height: 48px;
+        width: 48px;
+        padding: 0;
+        border-radius: 50%;
+    }
+}

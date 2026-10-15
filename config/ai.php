@@ -64,4 +64,14 @@ return [
             'temperature' => 0.3,
         ],
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Support & Handoff Configuration
+    |--------------------------------------------------------------------------
+    */
+    'support' => [
+        'whatsapp_number' => env('AI_CS_WHATSAPP', '6281234567890'),
+        'whatsapp_default_message' => env('AI_CS_DEFAULT_MESSAGE', 'Halo CS PakDe Group, saya ingin berkonsultasi mengenai layanan D-KREASI.'),
+    ],
 ];

@@ -58,6 +58,15 @@ class GuardrailService
      */
     public function inspectOutput(string $layer, string $output): string
     {
+        // Enforce anti-promise launch date for Coming Soon in L1
+        if ($layer === 'l1') {
+            $output = preg_replace(
+                '/(akan|pasti|dijadwalkan)\s+(rilis|meluncur|hadir|tersedia)\s+(pada\s+tanggal|bulan\s+depan|tahun\s+depan|\d{1,2}\s+[a-z]+\s+\d{4})/ui',
+                'sedang dalam tahap persiapan dan pengembangan oleh tim PakDe Group',
+                $output
+            ) ?? $output;
+        }
+
         // Enforce anti-false SEO promise guardrail for L3
         if ($layer === 'l3') {
             $output = preg_replace(

@@ -608,7 +608,15 @@
         </section>
     </section>
 
+    @include('components.home-ai-assistant')
+
 @endsection
+
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/home-ai-assistant.css') }}">
+@endpush
+
 @push('scripts')
     <script src="{{ asset('js/home.js') }}" defer></script>
+    <script src="{{ asset('js/home-ai-assistant.js') }}" defer></script>
 @endpush
