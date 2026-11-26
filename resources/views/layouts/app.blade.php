@@ -9,8 +9,21 @@
     <title>@yield('title', 'D-KREASI — Digital Creative Platform')</title>
     <meta name="description"
         content="@yield('meta_description', 'D-KREASI — Digital Creative Platform by PakDe Group.')">
+    <link rel="canonical" href="{{ url()->current() }}">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="D-KREASI">
+    <meta property="og:title" content="@yield('og_title', 'D-KREASI — Digital Creative Platform')">
+    <meta property="og:description" content="@yield('meta_description', 'D-KREASI — Digital Creative Platform by PakDe Group.')">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:image" content="{{ asset('images/og-dkreasi.png') }}">
+    <meta property="og:image:alt" content="D-KREASI — Ide Jadi Karya">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="@yield('og_title', 'D-KREASI — Digital Creative Platform')">
+    <meta name="twitter:description" content="@yield('meta_description', 'D-KREASI — Digital Creative Platform by PakDe Group.')">
+    <meta name="twitter:image" content="{{ asset('images/og-dkreasi.png') }}">
 
     <link rel="stylesheet" href="{{ asset('css/d-kreasi.css') }}">
+    <link rel="icon" href="{{ asset('favicon.ico') }}" sizes="any">
 
     @stack('styles')
 </head>
@@ -25,5 +38,12 @@
     @include('components.footer')
 
     @stack('scripts')
+
+    <script
+        src="{{ rtrim(config('services.ai_engine.url'), '/') }}/widget/widget.js"
+        data-site-key="site_dkreasi_public"
+        data-layer="l1"
+        defer
+    ></script>
 </body>
 </html>

@@ -6,6 +6,11 @@
 
 @section('content')
 
+    @php
+        $dkarsaUrl = rtrim(config('services.dkarsa.url'), '/');
+        $webiaUrl = rtrim(config('services.webia.url'), '/');
+    @endphp
+
 
     <section class="hero" id="beranda">
         <div class="hero-orb orb-purple"></div>
@@ -141,7 +146,7 @@
                 </ul>
                 <div class="service-bottom">
                     <span>Jelajahi layanan</span>
-                    <a href="{{ rtrim(config('app.url'), '/') }}/undangan" class="service-button">Pilih Undangan
+                    <a href="{{ $dkarsaUrl }}/buat-undangan" class="service-button">Pilih Undangan
                         →</a>
                 </div>
             </article>
@@ -169,7 +174,7 @@
                 </ul>
                 <div class="service-bottom">
                     <span>Jelajahi layanan</span>
-                    <a href="{{ route('webia.index') }}" class="service-button">Pilih Website →</a>
+                    <a href="{{ $webiaUrl }}" class="service-button">Pilih Website →</a>
                 </div>
             </article>
 
@@ -420,7 +425,7 @@
                 <div class="portfolio-info">
                     <h3>Rustic Elegance Theme</h3>
                     <p>Inspirasi undangan pernikahan dengan nuansa hangat dan elegan.</p>
-                    <span class="portfolio-link">Contoh desain ↗</span>
+                    <a href="{{ $dkarsaUrl }}" class="portfolio-link">Lihat layanan undangan ↗</a>
                 </div>
             </article>
 
@@ -451,7 +456,7 @@
                 <div class="portfolio-info">
                     <h3>Kopi Senja Coffee &amp; Eatery</h3>
                     <p>Inspirasi website untuk usaha makanan dan minuman.</p>
-                    <span class="portfolio-link">Contoh desain ↗</span>
+                    <a href="{{ $webiaUrl }}" class="portfolio-link">Lihat layanan website ↗</a>
                 </div>
             </article>
 
@@ -475,7 +480,7 @@
                 <div class="portfolio-info">
                     <h3>Syukuran Khitanan Cute</h3>
                     <p>Desain undangan ceria untuk acara keluarga.</p>
-                    <span class="portfolio-link">Contoh desain ↗</span>
+                    <a href="{{ $dkarsaUrl }}" class="portfolio-link">Lihat layanan undangan ↗</a>
                 </div>
             </article>
 
@@ -507,7 +512,7 @@
                 <div class="portfolio-info">
                     <h3>GlowSkin Official Web</h3>
                     <p>Inspirasi landing page untuk brand kecantikan.</p>
-                    <span class="portfolio-link">Contoh desain ↗</span>
+                    <a href="{{ $webiaUrl }}" class="portfolio-link">Lihat layanan website ↗</a>
                 </div>
             </article>
 
@@ -529,7 +534,7 @@
                 <div class="portfolio-info">
                     <h3>Sweet 17th Neon Party</h3>
                     <p>Konsep undangan ulang tahun dengan nuansa modern.</p>
-                    <span class="portfolio-link">Contoh desain ↗</span>
+                    <a href="{{ $dkarsaUrl }}" class="portfolio-link">Lihat layanan undangan ↗</a>
                 </div>
             </article>
 
@@ -563,7 +568,7 @@
                 <div class="portfolio-info">
                     <h3>LensRent Studio Web</h3>
                     <p>Inspirasi website katalog jasa penyewaan kamera.</p>
-                    <span class="portfolio-link">Contoh desain ↗</span>
+                    <a href="{{ $webiaUrl }}" class="portfolio-link">Lihat layanan website ↗</a>
                 </div>
             </article>
         </div>

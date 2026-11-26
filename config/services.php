@@ -35,4 +35,16 @@ return [
         ],
     ],
 
+    'ai_engine' => [
+        'url' => env('AI_ENGINE_URL', 'https://ai.d-kreasi.com'),
+    ],
+
+    'dkarsa' => [
+        'url' => env('DKARSA_URL', 'https://dkarsa.id'),
+    ],
+
+    'webia' => [
+        'url' => env('WEBIA_URL', 'https://webia.id'),
+    ],
+
 ];

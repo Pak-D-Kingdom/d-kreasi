@@ -12,7 +12,6 @@
      <meta name="theme-color" content="#123B82">
 
      <link rel="stylesheet" href="{{ asset('css/website-bisnis/website-bisnis.css') }}">
-     <link rel="stylesheet" href="{{ asset('css/website-bisnis/ai-assistant.css') }}">
 
      @stack('styles')
  </head>
@@ -29,10 +28,13 @@
 
      @stack('scripts')
 
-     <script src="{{ asset('js/website-bisnis/ai-assistant.js') }}" defer></script>
-
-     @include('website-bisnis.components.ai-assistant')
      @include('website-bisnis.components.portal-dkreasi')
+     <script
+         src="{{ rtrim(config('services.ai_engine.url'), '/') }}/widget/widget.js"
+         data-site-key="site_webia_public"
+         data-layer="l3"
+         defer
+     ></script>
  </body>
 
  </html>

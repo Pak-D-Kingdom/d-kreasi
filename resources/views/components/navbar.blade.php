@@ -14,10 +14,6 @@
             <a href="#faq">FAQ</a>
         </nav>
 
-        <button class="nav-ai" data-ai>
-            <span>✦</span> AI Assistant
-        </button>
-
         <button class="menu-toggle"
             aria-label="Buka navigasi"
             aria-expanded="false">☰</button>

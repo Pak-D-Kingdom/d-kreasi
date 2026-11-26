@@ -36,14 +36,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // AI Assistant widget trigger
+    // Buka AI Assistant Chatbot
     document.querySelectorAll('[data-ai]').forEach(button => {
         button.addEventListener('click', (e) => {
             e.preventDefault();
-            const launcher = document.querySelector('#dkreasi-ai-launcher');
-            const panel = document.querySelector('#dkreasi-ai-panel');
-            if (launcher && panel && !panel.classList.contains('is-open')) {
-                launcher.click();
+            if (window.PakdeAI && typeof window.PakdeAI.open === 'function') {
+                window.PakdeAI.open();
+            } else {
+                const launcher = document.getElementById('pakde-ai-launcher');
+                if (launcher) {
+                    launcher.click();
+                }
             }
         });
     });

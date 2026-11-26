@@ -7,6 +7,8 @@ Route::get('/', function () {
     return view('home.index');
 })->name('home');
 
+Route::view('/status', 'status')->name('status');
+
 Route::view('/webia', 'website-bisnis.index')
     ->name('webia.index');
 
