@@ -589,8 +589,8 @@
             </details>
             <details class="faq-item">
                 <summary>Bagaimana cara memilih layanan yang sesuai?<span>⌄</span></summary>
-                <p>Pilih kartu layanan untuk melihat informasi lebih lanjut. Kamu juga bisa menggunakan AI Assistant
-                    saat integrasinya tersedia.</p>
+                <p>Pilih kartu layanan untuk melihat informasi lebih lanjut. Kamu juga bisa membuka AI Assistant
+                    untuk memperoleh arahan sesuai kebutuhanmu.</p>
             </details>
             <details class="faq-item">
                 <summary>Apakah desain bisa disesuaikan dengan kebutuhan?<span>⌄</span></summary>
@@ -613,15 +613,8 @@
         </section>
     </section>
 
-    @include('components.home-ai-assistant')
-
 @endsection
-
-@push('styles')
-    <link rel="stylesheet" href="{{ asset('css/home-ai-assistant.css') }}">
-@endpush
 
 @push('scripts')
     <script src="{{ asset('js/home.js') }}" defer></script>
-    <script src="{{ asset('js/home-ai-assistant.js') }}" defer></script>
 @endpush

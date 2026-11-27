@@ -17,7 +17,7 @@
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:image" content="{{ asset('images/og-dkreasi.png') }}">
     <meta property="og:image:alt" content="D-KREASI — Ide Jadi Karya">
-    <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="@yield('og_title', 'D-KREASI — Digital Creative Platform')">
     <meta name="twitter:description" content="@yield('meta_description', 'D-KREASI — Digital Creative Platform by PakDe Group.')">
     <meta name="twitter:image" content="{{ asset('images/og-dkreasi.png') }}">
